@@ -1,0 +1,38 @@
+# MindSpore framework
+mindspore==2.3.1
+mindspore-lite==2.3.1
+
+# Data processing
+numpy==1.24.3
+pandas==2.0.3
+scikit-learn==1.3.0
+
+# Web framework and API
+flask==2.3.3
+flask-cors==4.0.0
+gunicorn==21.2.0
+fastapi==0.103.0
+uvicorn==0.23.2
+
+# Model serving
+joblib==1.3.2
+pydantic==2.3.0
+
+# Huawei Cloud SDK
+huaweicloudsdkcore==3.1.53
+huaweicloudsdkmodelarts==3.1.53
+
+# Data visualization and analysis
+matplotlib==3.7.2
+seaborn==0.12.2
+
+# Utilities
+tqdm==4.66.1
+requests==2.31.0
+
+# Development and testing
+pytest==7.4.0
+jupyter==1.0.0
+
+# Performance monitoring
+psutil==5.9.5
