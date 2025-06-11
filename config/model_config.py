@@ -89,6 +89,12 @@ class TrainingConfig:
     device_target: str = "CPU"  # "CPU", "GPU", "Ascend"
     device_id: int = 0
     
+    # 训练参数
+    learning_rate: float = 0.001
+    epochs: int = 100
+    batch_size: int = 32
+    early_stopping_patience: int = 10
+    
     # 保存路径
     model_save_path: str = "./checkpoints"
     log_path: str = "./logs"

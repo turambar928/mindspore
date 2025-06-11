@@ -24,7 +24,7 @@ def parse_arguments():
     
     # 数据参数
     parser.add_argument('--data_path', type=str, 
-                       default="../diabetes_prediction_dataset.csv",
+                       default="./diabetes_prediction_dataset.csv",
                        help='训练数据路径')
     
     # 模型参数
@@ -100,15 +100,15 @@ def create_configs(args):
     model_config.hidden_sizes = args.hidden_sizes
     model_config.dropout_rate = args.dropout_rate
     model_config.activation = args.activation
-    model_config.learning_rate = args.learning_rate
-    model_config.batch_size = args.batch_size
-    model_config.epochs = args.epochs
-    model_config.early_stopping_patience = args.early_stopping_patience
     
     # 训练配置
     training_config = TrainingConfig()
     training_config.device_target = args.device
     training_config.device_id = args.device_id
+    training_config.learning_rate = args.learning_rate
+    training_config.batch_size = args.batch_size
+    training_config.epochs = args.epochs
+    training_config.early_stopping_patience = args.early_stopping_patience
     training_config.model_save_path = os.path.dirname(args.save_path)
     training_config.log_path = args.log_dir
     training_config.eval_interval = args.eval_interval
@@ -130,7 +130,7 @@ def train_model(args):
     print("📊 加载和预处理数据...")
     train_dataset, val_dataset, test_dataset = prepare_data_for_training(
         data_path=args.data_path,
-        batch_size=args.batch_size
+        batch_size=training_config.batch_size
     )
     
     print(f"训练集大小: {train_dataset.get_dataset_size()}")
@@ -154,12 +154,12 @@ def train_model(args):
     )
     
     # 开始训练
-    print(f"\n🚀 开始训练 (共{args.epochs}轮)...")
+    print(f"\n🚀 开始训练 (共{training_config.epochs}轮)...")
     start_time = time.time()
     
     try:
         trainer.train(
-            epoch=args.epochs,
+            epoch=training_config.epochs,
             train_dataset=train_dataset,
             callbacks=callbacks,
             dataset_sink_mode=False
@@ -226,10 +226,10 @@ def save_training_report(args, model_config, training_config,
         
         f.write("训练参数:\n")
         f.write(f"  数据路径: {args.data_path}\n")
-        f.write(f"  训练轮数: {args.epochs}\n")
-        f.write(f"  批大小: {args.batch_size}\n")
-        f.write(f"  学习率: {args.learning_rate}\n")
-        f.write(f"  设备: {args.device}\n")
+        f.write(f"  训练轮数: {training_config.epochs}\n")
+        f.write(f"  批大小: {training_config.batch_size}\n")
+        f.write(f"  学习率: {training_config.learning_rate}\n")
+        f.write(f"  设备: {training_config.device_target}\n")
         f.write(f"  训练时间: {training_time:.2f}秒\n\n")
         
         f.write("模型架构:\n")
