@@ -53,6 +53,7 @@ class CustomLossMonitor(LossMonitor):
     
     def __init__(self, per_print_times: int = 1):
         super(CustomLossMonitor, self).__init__(per_print_times)
+        self.per_print_times = per_print_times  # 显式设置属性
         self.loss_history = []
         
     def on_train_step_end(self, run_context):
